@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-setup(name="pelicansqlgenerator",
+setup(name="pelican-sqlgenerator",
       version="0.0.1",
       description="Feed pelican from a database",
       long_description="",
