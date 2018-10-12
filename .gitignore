@@ -1,3 +1,10 @@
-nv
+__pycache__/
+*.py[cod]
+*$py.class
+
+*.egg-info/
+
 .cache
-*.pyc
+
+nv
+nv3
