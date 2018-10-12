@@ -29,13 +29,15 @@ class TestSQLGenerator(unittest.TestCase):
         from pelicansqlgenerator import models
         db_fd, db_fn = mkstemp(prefix="pelicandb.")
         db = SqliteDatabase(db_fn)
+        db_url = "sqlite:///" + db_fn
         models.init_db(db)
         # test
-        settings = read_settings(path=self.temp_work, override=dict(
+        settings = read_settings(path=None, override=dict(
+            PATH=self.temp_work,
             OUTPUT_PATH=self.temp_path,
             CACHE_PATH=self.temp_cache,
             PLUGINS=[pelicansqlgenerator],
-            SQL_DATABASE="sqlite:///%s" % db_fn,
+            SQL_DATABASE=db_url,
         ))
         pelican = Pelican(settings=settings)
         pelican.run()
@@ -46,11 +48,12 @@ class TestSQLGenerator(unittest.TestCase):
     def test_with_sqlite(self):
         """ Should run without any data without error """
         test_db = path.join(path.dirname(__file__), "data.db")
-        settings = read_settings(path=self.temp_work, override=dict(
+        settings = read_settings(path=None, override=dict(
+            PATH=self.temp_work,
             OUTPUT_PATH=self.temp_path,
             CACHE_PATH=self.temp_cache,
             PLUGINS=[pelicansqlgenerator],
-            SQL_DATABASE="sqlite:///%s" % test_db,
+            SQL_DATABASE="sqlite:///{}".format(test_db),
         ))
         pelican = Pelican(settings=settings)
         pelican.run()
