@@ -37,7 +37,7 @@ class Content(peewee.Model):
         (QUOTE, 'Quote'),
     )
 
-    author  = peewee.ForeignKeyField(Author, related_name="publications")
+    author  = peewee.ForeignKeyField(Author, backref="publications")
     title   = peewee.CharField(max_length=160, unique=True)
     slug    = peewee.CharField(max_length=40)
     date    = peewee.DateTimeField(default=datetime.now)
